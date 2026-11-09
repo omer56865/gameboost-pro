@@ -1,0 +1,543 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "updated": "2026-11-09",
+    "description": "GameBoost Pro oyun veritabanı. GitHub'dan otomatik güncellenir.",
+    "contributors": [],
+    "schema": {
+      "demand": "1=çok hafif, 2=hafif, 3=orta, 4=ağır, 5=çok ağır",
+      "cpu_bound": "true ise upscaling FPS'i çok artırmaz, CPU darboğaz",
+      "anticheat": "kernel AC varsa true - dosyaya dokunma",
+      "upscaler_support": ["none","fsr","dlss","xess","all"],
+      "settings_low/medium/high": "Bu tier GPU için önerilen ayarlar"
+    }
+  },
+  "games": {
+    "counter-strike 2": {
+      "demand": 2, "anticheat": true, "cpu_bound": true,
+      "engine": "Source 2", "genre": "fps_competitive",
+      "upscaler_support": ["fsr","xess"],
+      "config_file": "Steam/userdata/*/730/local/cfg/cs2_video.txt",
+      "notes": "VAC ban riski: oyunun kendi ayar menüsünü kullan, dosyayı oyun kapalıyken düzenle.",
+      "fps_target_competitive": 240,
+      "settings": {
+        "low":    {"shadows":0,"textures":0,"ao":0,"particles":0,"msaa":0,"shader":0,"filtering":0},
+        "medium": {"shadows":2,"textures":1,"ao":0,"particles":0,"msaa":2,"shader":0,"filtering":3},
+        "high":   {"shadows":2,"textures":1,"ao":2,"particles":0,"msaa":4,"shader":1,"filtering":5}
+      }
+    },
+    "counter-strike 1.6": {
+      "demand": 1, "anticheat": false, "cpu_bound": true,
+      "engine": "GoldSrc", "genre": "fps_competitive",
+      "upscaler_support": ["none"],
+      "notes": "fps_max 144 veya monitör yenileme hızı. Oyun zaten çok hafif, ayar dosyası gerekmez.",
+      "settings": {"all": {"fps_max": 144, "gl_picmip": 2, "r_drawviewmodel": 1}}
+    },
+    "valorant": {
+      "demand": 2, "anticheat": true, "cpu_bound": true,
+      "engine": "Unreal Engine 4", "genre": "fps_competitive",
+      "upscaler_support": ["none"],
+      "notes": "Vanguard: hiçbir dosyaya dokunma. Oyun içi: Multithreaded Rendering AÇIK, VSync KAPALI, tüm kalite DÜŞÜK, Bloom+Distortion+Shadows KAPALI.",
+      "in_game_tips": {
+        "must_on": ["Multithreaded Rendering","Limit FPS on Battery"],
+        "must_off": ["VSync","Bloom","Distortion","Cast Shadows"],
+        "quality_all": "Low",
+        "antialiasing": "MSAA 1x or None",
+        "fps_limit": "monitor_hz_plus_10"
+      }
+    },
+    "minecraft": {
+      "demand": 2, "anticheat": false, "cpu_bound": true,
+      "engine": "Java", "genre": "sandbox",
+      "upscaler_support": ["none"],
+      "config_file": "%APPDATA%/.minecraft/options.txt",
+      "notes": "Oyun kapalıyken düzenle. Sodium modu (Fabric) FPS'i 2-3x artırır.",
+      "mods_recommended": ["Sodium","Lithium","Phosphor","FerriteCore","LazyDFU"],
+      "settings": {
+        "low":    {"renderDistance": 6,  "simulationDistance": 5,  "particles": 2, "entityShadows": "false", "mipmapLevels": 0, "graphicsMode": 0},
+        "medium": {"renderDistance": 10, "simulationDistance": 8,  "particles": 1, "entityShadows": "false", "mipmapLevels": 2, "graphicsMode": 1},
+        "high":   {"renderDistance": 16, "simulationDistance": 12, "particles": 0, "entityShadows": "true",  "mipmapLevels": 4, "graphicsMode": 1}
+      }
+    },
+    "gta v": {
+      "demand": 3, "anticheat": false, "cpu_bound": false,
+      "engine": "RAGE", "genre": "open_world",
+      "upscaler_support": ["fsr"],
+      "config_file": "Documents/Rockstar Games/GTA V/settings.xml",
+      "notes": "Story modda dosya düzenlemesi güvenli. GTA Online'da risk alma.",
+      "settings": {
+        "low":    {"Tessellation":0,"ShadowQuality":0,"ReflectionQuality":0,"SSAO":0,"AnisotropicFiltering":0,"TextureQuality":0,"MSAA":0,"MSAAFragments":0},
+        "medium": {"Tessellation":0,"ShadowQuality":1,"ReflectionQuality":1,"SSAO":0,"AnisotropicFiltering":4,"TextureQuality":1,"MSAA":0,"MSAAFragments":0},
+        "high":   {"Tessellation":1,"ShadowQuality":2,"ReflectionQuality":2,"SSAO":1,"AnisotropicFiltering":8,"TextureQuality":2,"MSAA":2,"MSAAFragments":1}
+      }
+    },
+    "cyberpunk 2077": {
+      "demand": 5, "anticheat": false, "cpu_bound": false,
+      "engine": "REDengine 4", "genre": "open_world_rpg",
+      "upscaler_support": ["all"],
+      "config_file": "%USERPROFILE%/AppData/Local/CD Projekt Red/Cyberpunk 2077/UserSettings.json",
+      "notes": "Ray tracing çok ağır. DLSS/FSR olmadan 4K'da en güçlü GPU bile zorlanır. Psycho kalite sadece RTX 40 serisi için mantıklı.",
+      "settings": {
+        "low":    {"Preset":"Low",  "RayTracing":false,"MotionBlur":false,"ChromaticAberration":false,"FilmGrain":false,"DOF":false},
+        "medium": {"Preset":"Medium","RayTracing":false,"MotionBlur":false,"ChromaticAberration":false,"FilmGrain":false,"DOF":false},
+        "high":   {"Preset":"High", "RayTracing":false,"MotionBlur":false,"ChromaticAberration":false,"FilmGrain":false}
+      }
+    },
+    "elden ring": {
+      "demand": 3, "anticheat": true, "cpu_bound": true,
+      "engine": "Havok", "genre": "action_rpg",
+      "upscaler_support": ["fsr","dlss_via_mod"],
+      "notes": "EAC var ancak offline modda dosya düzenlemesi genellikle güvenli. 60 FPS kilidi var - kaldırmak için mod gerekir.",
+      "settings": {
+        "low":    {"TextureQuality":0,"ShadowQuality":0,"AO":0,"SSR":0,"AA":"TAA","MotionBlur":false},
+        "medium": {"TextureQuality":1,"ShadowQuality":1,"AO":1,"SSR":1,"AA":"TAA","MotionBlur":false},
+        "high":   {"TextureQuality":2,"ShadowQuality":2,"AO":2,"SSR":2,"AA":"TAA","MotionBlur":false}
+      }
+    },
+    "fortnite": {
+      "demand": 4, "anticheat": true, "cpu_bound": false,
+      "engine": "Unreal Engine 5", "genre": "battle_royale",
+      "upscaler_support": ["dlss","fsr","xess","tsr"],
+      "notes": "EAC var. Oyun içi DLSS/FSR kullan. Shadows kapatmak en büyük FPS kazancını sağlar.",
+      "in_game_tips": {
+        "must_off": ["Shadows","Nanite Virtualized Geometry","Lumen Global Illumination","Motion Blur","VSync"],
+        "must_on":  ["DLSS veya FSR","Multithreaded Rendering"],
+        "view_distance": "High (görüş açısı için)",
+        "textures": "Medium",
+        "effects": "Low",
+        "post_processing": "Low"
+      }
+    },
+    "the witcher 3": {
+      "demand": 3, "anticheat": false, "cpu_bound": false,
+      "engine": "REDengine 3", "genre": "open_world_rpg",
+      "upscaler_support": ["all"],
+      "config_file": "Documents/The Witcher 3/user.settings",
+      "notes": "Next-gen patch ile çok daha ağır oldu. FSR/DLSS ile orta GPU'da rahat çalışır.",
+      "settings": {
+        "low":    {"TextureQuality":0,"ShadowQuality":0,"TerrainQuality":0,"WaterQuality":0,"GrassQuality":0,"AO":false},
+        "medium": {"TextureQuality":1,"ShadowQuality":1,"TerrainQuality":1,"WaterQuality":1,"GrassQuality":1,"AO":true},
+        "high":   {"TextureQuality":2,"ShadowQuality":2,"TerrainQuality":2,"WaterQuality":2,"GrassQuality":2,"AO":true}
+      }
+    },
+    "red dead redemption 2": {
+      "demand": 5, "anticheat": false, "cpu_bound": true,
+      "engine": "RAGE", "genre": "open_world",
+      "upscaler_support": ["dlss","fsr"],
+      "config_file": "Documents/Rockstar Games/Red Dead Redemption 2/Settings/system.xml",
+      "notes": "Çok CPU bağımlı. Yüksek kalite 8 çekirdek + 16 GB RAM gerektirir. Shader cache ilk açılışta uzun sürer.",
+      "settings": {
+        "low":    {"textureQuality":0,"shadowQuality":0,"reflectionQuality":0,"ssao":0,"fur":0,"globalIllumination":false},
+        "medium": {"textureQuality":1,"shadowQuality":1,"reflectionQuality":1,"ssao":1,"fur":1,"globalIllumination":false},
+        "high":   {"textureQuality":2,"shadowQuality":2,"reflectionQuality":2,"ssao":2,"fur":2,"globalIllumination":true}
+      }
+    },
+    "apex legends": {
+      "demand": 3, "anticheat": true, "cpu_bound": true,
+      "engine": "Source", "genre": "battle_royale",
+      "upscaler_support": ["fsr","dlss"],
+      "notes": "EAC var. Çok CPU bağımlı, güçlü işlemci önemli. Shadows ve Model Detail FPS etkisi en yüksek.",
+      "in_game_tips": {
+        "must_off": ["VSync","Motion Blur","Ragdolls"],
+        "textures": "Low-Medium",
+        "shadows": "Low veya Kapalı",
+        "model_detail": "Low",
+        "effects": "Low",
+        "fps_limit": "monitor_hz"
+      }
+    },
+    "league of legends": {
+      "demand": 1, "anticheat": true, "cpu_bound": true,
+      "engine": "Custom", "genre": "moba",
+      "upscaler_support": ["none"],
+      "notes": "VANGUARD var ancak oyun çok hafif. Neredeyse her sistemde 144 FPS alınabilir.",
+      "in_game_tips": {
+        "character_quality": "Medium",
+        "environment_quality": "Very Low",
+        "shadows": "Kapalı",
+        "effects_quality": "Low",
+        "fps_cap": "144 veya monitor yenileme hızı"
+      }
+    },
+    "dota 2": {
+      "demand": 2, "anticheat": false, "cpu_bound": true,
+      "engine": "Source 2", "genre": "moba",
+      "upscaler_support": ["fsr"],
+      "notes": "Neredeyse her PC'de rahat çalışır. Yüksek kalitede çalıştırmak için güçlü GPU şart değil.",
+      "settings": {
+        "low":    {"renderQuality":0,"shadowQuality":0,"textureQuality":0,"effectsQuality":0,"aoQuality":0},
+        "medium": {"renderQuality":1,"shadowQuality":1,"textureQuality":1,"effectsQuality":1,"aoQuality":1},
+        "high":   {"renderQuality":2,"shadowQuality":2,"textureQuality":2,"effectsQuality":2,"aoQuality":2}
+      }
+    },
+    "pubg": {
+      "demand": 4, "anticheat": true, "cpu_bound": true,
+      "engine": "Unreal Engine 4", "genre": "battle_royale",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "BattlEye var. Çok optimize edilmemiş. 1920x1080 Ultra Wide görüş açısı: 103.",
+      "in_game_tips": {
+        "textures": "Ultra (VRAM izin veriyorsa)",
+        "shadows": "Very Low",
+        "effects": "Very Low",
+        "foliage": "Very Low",
+        "view_distance": "Low",
+        "anti_aliasing": "TAA Boost"
+      }
+    },
+    "call of duty warzone": {
+      "demand": 4, "anticheat": true, "cpu_bound": true,
+      "engine": "IW 9.0", "genre": "battle_royale",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "Ricochet anti-cheat. Çok yüksek VRAM tüketir.",
+      "in_game_tips": {
+        "textures": "Normal (VRAM'e göre)",
+        "shadows": "Low",
+        "particle_lighting": "Low",
+        "ambient_occlusion": "Disabled",
+        "motion_blur": "Kapalı",
+        "film_grain": "0"
+      }
+    },
+    "baldurs gate 3": {
+      "demand": 4, "anticheat": false, "cpu_bound": false,
+      "engine": "Divinity 4.0", "genre": "rpg_turnbased",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "Şehir ve çok oyunculu sahnelerde CPU darboğazı olabilir. Vulkan backend dene.",
+      "settings": {
+        "low":    {"textures":0,"shadows":0,"ao":0,"fog":false,"bloom":false},
+        "medium": {"textures":1,"shadows":1,"ao":1,"fog":true,"bloom":false},
+        "high":   {"textures":2,"shadows":2,"ao":2,"fog":true,"bloom":true}
+      }
+    },
+    "hogwarts legacy": {
+      "demand": 5, "anticheat": false, "cpu_bound": false,
+      "engine": "Unreal Engine 4", "genre": "action_rpg",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "FSR/DLSS olmadan çok ağır. Foliage ve Shadow Distance en büyük FPS katili.",
+      "settings": {
+        "low":    {"FoliageDetail":"Low","ShadowQuality":"Low","TextureDetail":"Low","EffectsDetail":"Low","PopDensity":"Low","Raytracing":false},
+        "medium": {"FoliageDetail":"Medium","ShadowQuality":"Medium","TextureDetail":"Medium","EffectsDetail":"Medium","PopDensity":"Medium","Raytracing":false},
+        "high":   {"FoliageDetail":"High","ShadowQuality":"High","TextureDetail":"High","EffectsDetail":"High","PopDensity":"High","Raytracing":false}
+      }
+    },
+    "starfield": {
+      "demand": 5, "anticheat": false, "cpu_bound": true,
+      "engine": "Creation Engine 2", "genre": "open_world_rpg",
+      "upscaler_support": ["dlss_via_mod","fsr","xess"],
+      "notes": "Çok CPU bağımlı. Şehirlerde FPS düşüşü kaçınılmaz. FSR 2 (mod ile) önerilir.",
+      "settings": {
+        "low":    {"ShadowQuality":0,"IndirectLighting":0,"GeometricDetail":0,"ParticleCount":0,"Clouds":false},
+        "medium": {"ShadowQuality":1,"IndirectLighting":1,"GeometricDetail":1,"ParticleCount":1,"Clouds":true},
+        "high":   {"ShadowQuality":2,"IndirectLighting":2,"GeometricDetail":2,"ParticleCount":2,"Clouds":true}
+      }
+    },
+    "roblox": {
+      "demand": 1, "anticheat": true, "cpu_bound": true,
+      "engine": "Roblox Engine", "genre": "platform",
+      "upscaler_support": ["none"],
+      "notes": "Byfron anti-cheat var. Oyun sunucuya göre değişir. Grafik kalitesini 1-5'e çek.",
+      "in_game_tips": {
+        "graphics_quality": "5-7 (1-21 arası)",
+        "fullscreen": true,
+        "shadows": "Kapalı"
+      }
+    },
+    "overwatch 2": {
+      "demand": 3, "anticheat": false, "cpu_bound": true,
+      "engine": "Overwatch Engine", "genre": "fps_competitive",
+      "upscaler_support": ["fsr","xess"],
+      "notes": "Çok optimize edilmiş. Orta GPU'da 144 FPS mümkün.",
+      "in_game_tips": {
+        "textures": "High",
+        "local_shadows": "Medium",
+        "ambient_occlusion": "Kapalı",
+        "local_reflections": "Kapalı",
+        "shadow_map_size": "Medium",
+        "render_scale": "100%",
+        "fps_limit": "monitor_hz"
+      }
+    },
+    "diablo iv": {
+      "demand": 3, "anticheat": false, "cpu_bound": false,
+      "engine": "Custom", "genre": "arpg",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "Şehir merkezlerinde FPS düşer. DLSS Quality veya FSR Quality en iyi denge.",
+      "settings": {
+        "low":    {"textures":0,"shadows":0,"ssao":false,"ssgi":false,"clutter":0},
+        "medium": {"textures":1,"shadows":1,"ssao":true,"ssgi":false,"clutter":1},
+        "high":   {"textures":2,"shadows":2,"ssao":true,"ssgi":true,"clutter":2}
+      }
+    },
+    "palworld": {
+      "demand": 4, "anticheat": false, "cpu_bound": true,
+      "engine": "Unreal Engine 5", "genre": "survival",
+      "upscaler_support": ["dlss","fsr","xess","tsr"],
+      "notes": "Lumen ve Nanite yoğun GPU kullanımı yapar. Dedicated server oynarken CPU önemli.",
+      "settings": {
+        "low":    {"ShadowQuality":"Low","TextureQuality":"Low","Lumen":false,"Nanite":false,"MotionBlur":false},
+        "medium": {"ShadowQuality":"Medium","TextureQuality":"Medium","Lumen":false,"Nanite":true,"MotionBlur":false},
+        "high":   {"ShadowQuality":"High","TextureQuality":"High","Lumen":true,"Nanite":true,"MotionBlur":false}
+      }
+    },
+    "sons of the forest": {
+      "demand": 4, "anticheat": false, "cpu_bound": false,
+      "engine": "Unity", "genre": "survival_horror",
+      "upscaler_support": ["dlss","fsr"],
+      "notes": "Ormanlık alanlarda yoğun foliage. Grass ve Tree Quality düşürmek büyük FPS kazancı sağlar.",
+      "settings": {
+        "low":    {"ShadowQuality":0,"GrassQuality":0,"TreeQuality":0,"AO":false},
+        "medium": {"ShadowQuality":1,"GrassQuality":1,"TreeQuality":1,"AO":true},
+        "high":   {"ShadowQuality":2,"GrassQuality":2,"TreeQuality":2,"AO":true}
+      }
+    },
+    "rust": {
+      "demand": 4, "anticheat": true, "cpu_bound": true,
+      "engine": "Unity", "genre": "survival",
+      "upscaler_support": ["none"],
+      "notes": "EAC var. Çok optimize edilmemiş. Shader.level 100 → 200 ile FPS artabilir. City server'larda FPS düşer.",
+      "in_game_tips": {
+        "graphics_quality": "0-1",
+        "shadow_cascades": "No Shadows",
+        "max_gibs": "0",
+        "draw_distance": "1000"
+      }
+    },
+    "battlefield 2042": {
+      "demand": 5, "anticheat": true, "cpu_bound": false,
+      "engine": "Frostbite", "genre": "fps_multiplayer",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "EA Anti-Cheat var. Büyük harita ve 128 oyunculu modda çok yüklü.",
+      "settings": {
+        "low":    {"textures":"Low","shadows":"Low","effects":"Low","post_process":"Low","ambient_occlusion":"SSAO"},
+        "medium": {"textures":"Medium","shadows":"Medium","effects":"Medium","post_process":"Medium","ambient_occlusion":"HBAO"},
+        "high":   {"textures":"High","shadows":"High","effects":"High","post_process":"High","ambient_occlusion":"HBAO+"}
+      }
+    },
+    "black myth wukong": {
+      "demand": 5, "anticheat": false, "cpu_bound": false,
+      "engine": "Unreal Engine 5", "genre": "action_rpg",
+      "upscaler_support": ["dlss","fsr","xess","tsr"],
+      "notes": "2024'ün en yoğun oyunlarından. Lumen + Nanite + Ray tracing aynı anda açmak sadece RTX 4090 için. DLSS Balanced veya FSR Quality şiddetle önerilir.",
+      "settings": {
+        "low":    {"ShadowQuality":"Low","TextureQuality":"Low","Lumen":false,"Nanite":true,"RayTracing":false,"MotionBlur":false},
+        "medium": {"ShadowQuality":"Medium","TextureQuality":"Medium","Lumen":false,"Nanite":true,"RayTracing":false,"MotionBlur":false},
+        "high":   {"ShadowQuality":"High","TextureQuality":"High","Lumen":true,"Nanite":true,"RayTracing":false,"MotionBlur":false}
+      }
+    },
+    "helldivers 2": {
+      "demand": 4, "anticheat": true, "cpu_bound": true,
+      "engine": "Autodesk Stingray", "genre": "coop_shooter",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "nProtect GameGuard var. Yoğun savaş sahnelerinde CPU darboğazı. Foliage ve Shadows FPS etkisi yüksek.",
+      "settings": {
+        "low":    {"ShadowQuality":"Low","Foliage":"Low","Particle":"Low","Texture":"Medium","AO":false},
+        "medium": {"ShadowQuality":"Medium","Foliage":"Medium","Particle":"Medium","Texture":"High","AO":true},
+        "high":   {"ShadowQuality":"High","Foliage":"High","Particle":"High","Texture":"Ultra","AO":true}
+      }
+    },
+    "last epoch": {
+      "demand": 3, "anticheat": false, "cpu_bound": true,
+      "engine": "Unity", "genre": "arpg",
+      "upscaler_support": ["dlss","fsr"],
+      "notes": "Çok oyunculu sahnelerde ve yoğun beceri efektlerinde FPS düşer.",
+      "settings": {
+        "low":    {"shadows":false,"ao":false,"bloom":false,"particles":"Low"},
+        "medium": {"shadows":true,"ao":false,"bloom":false,"particles":"Medium"},
+        "high":   {"shadows":true,"ao":true,"bloom":true,"particles":"High"}
+      }
+    },
+    "borderlands 3": {
+      "demand": 3, "anticheat": false, "cpu_bound": true,
+      "engine": "Unreal Engine 4", "genre": "looter_shooter",
+      "upscaler_support": ["dlss","fsr"],
+      "notes": "DX12 genellikle daha iyi. Volumetric Fog ve Shadow Distance FPS etkisi yüksek.",
+      "settings": {
+        "low":    {"textures":"Low","shadows":"Low","vol_fog":false,"effects":"Low"},
+        "medium": {"textures":"Medium","shadows":"Medium","vol_fog":false,"effects":"Medium"},
+        "high":   {"textures":"High","shadows":"High","vol_fog":true,"effects":"High"}
+      }
+    },
+    "borderlands 4": {
+      "demand": 5, "anticheat": false, "cpu_bound": false,
+      "engine": "Unreal Engine 5", "genre": "looter_shooter",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "2025'te çıktı. Minimum 1080p/30fps Low. Foliage Density ve Volumetric Fog'u kıs.",
+      "settings": {
+        "low":    {"FoliageDensity":"Low","ShadowQuality":"Low","TextureDetail":"Low","VolumetricFog":false},
+        "medium": {"FoliageDensity":"Medium","ShadowQuality":"Medium","TextureDetail":"Medium","VolumetricFog":false},
+        "high":   {"FoliageDensity":"High","ShadowQuality":"High","TextureDetail":"High","VolumetricFog":true}
+      }
+    },
+    "the finals": {
+      "demand": 4, "anticheat": true, "cpu_bound": false,
+      "engine": "Unreal Engine 5", "genre": "fps_competitive",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "EAC var. Yıkım efektleri çok GPU yoğun. DLSS/FSR olmadan 1080p'de bile zorlanabilir.",
+      "in_game_tips": {
+        "textures": "Medium",
+        "shadows": "Low",
+        "ambient_occlusion": "SSAO",
+        "motion_blur": "Kapalı",
+        "upscaler": "DLSS Balanced veya FSR Quality"
+      }
+    },
+    "marvel rivals": {
+      "demand": 3, "anticheat": true, "cpu_bound": false,
+      "engine": "Unreal Engine 5", "genre": "hero_shooter",
+      "upscaler_support": ["dlss","fsr","xess","tsr"],
+      "notes": "BattlEye var. Lumen kapalı tutulursa çok daha iyi FPS alınır.",
+      "in_game_tips": {
+        "must_off": ["Lumen","Motion Blur","Film Grain","VSync"],
+        "shadows": "Medium",
+        "textures": "High (VRAM izin veriyorsa)",
+        "upscaler": "DLSS Quality veya FSR Quality"
+      }
+    },
+    "path of exile 2": {
+      "demand": 4, "anticheat": false, "cpu_bound": true,
+      "engine": "Custom (GGG)", "genre": "arpg",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "Yoğun beceri efektlerinde CPU darboğazı. Particle Density düşürmek en büyük FPS kazancı.",
+      "settings": {
+        "low":    {"shadows":0,"textures":0,"effects":0,"particles":0,"ao":false},
+        "medium": {"shadows":1,"textures":1,"effects":1,"particles":1,"ao":false},
+        "high":   {"shadows":2,"textures":2,"effects":2,"particles":2,"ao":true}
+      }
+    },
+    "schedule 1": {
+      "demand": 2, "anticheat": false, "cpu_bound": true,
+      "engine": "Unity", "genre": "simulation",
+      "upscaler_support": ["none"],
+      "notes": "2025'te viral olan hafif bir oyun. Neredeyse her sistemde çalışır.",
+      "settings": {
+        "low":    {"quality":0},
+        "medium": {"quality":1},
+        "high":   {"quality":2}
+      }
+    },
+    "monster hunter wilds": {
+      "demand": 5, "anticheat": false, "cpu_bound": false,
+      "engine": "RE Engine", "genre": "action_rpg",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "2025'in en yoğun oyunlarından. DLSS/FSR olmadan 1080p'de bile zorlanabilir. Grass ve Foliage'ı kıs.",
+      "settings": {
+        "low":    {"textures":"Low","shadows":"Low","grass":"Low","ambient_occlusion":"SSAO","ray_tracing":false},
+        "medium": {"textures":"Medium","shadows":"Medium","grass":"Medium","ambient_occlusion":"HBAO","ray_tracing":false},
+        "high":   {"textures":"High","shadows":"High","grass":"High","ambient_occlusion":"HBAO+","ray_tracing":false}
+      }
+    },
+    "grand theft auto vi": {
+      "demand": 5, "anticheat": true, "cpu_bound": false,
+      "engine": "RAGE 2", "genre": "open_world",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "2025 sonu / 2026 PC çıkışı bekleniyor. Şu an konsol verilerine göre tahmin. Güncelleme gelecektir.",
+      "settings": {
+        "low":    {"estimated": true, "note": "RTX 3060 veya RX 6600 için tahmini Low preset"},
+        "medium": {"estimated": true, "note": "RTX 3070/4060 veya RX 6700 XT için tahmini Medium preset"},
+        "high":   {"estimated": true, "note": "RTX 4070 ve üzeri için tahmini High preset"}
+      }
+    },
+    "fifa 25": {
+      "demand": 2, "anticheat": true, "cpu_bound": true,
+      "engine": "Frostbite", "genre": "sports",
+      "upscaler_support": ["dlss","fsr"],
+      "notes": "EA Anti-Cheat var. Çok optimize. Orta GPU'da Ultra ayarda 60 FPS rahat alınır.",
+      "settings": {
+        "low":    {"textures":"Low","shadows":"Low","crowd":"Low"},
+        "medium": {"textures":"Medium","shadows":"Medium","crowd":"Medium"},
+        "high":   {"textures":"Ultra","shadows":"High","crowd":"Ultra"}
+      }
+    },
+    "ea sports fc 25": {
+      "demand": 2, "anticheat": true, "cpu_bound": true,
+      "engine": "Frostbite", "genre": "sports",
+      "upscaler_support": ["dlss","fsr"],
+      "notes": "EA Anti-Cheat var. FIFA 25 ile aynı motor. Çok optimize.",
+      "settings": {
+        "low":    {"textures":"Low","shadows":"Low"},
+        "medium": {"textures":"Medium","shadows":"Medium"},
+        "high":   {"textures":"Ultra","shadows":"High"}
+      }
+    },
+    "tekken 8": {
+      "demand": 3, "anticheat": false, "cpu_bound": false,
+      "engine": "Unreal Engine 5", "genre": "fighting",
+      "upscaler_support": ["dlss","fsr","xess"],
+      "notes": "60 FPS kilidi kolay aşılır, 120 FPS için güçlü sistem gerekir.",
+      "settings": {
+        "low":    {"textures":"Low","shadows":"Low","effects":"Low","ao":false},
+        "medium": {"textures":"Medium","shadows":"Medium","effects":"Medium","ao":true},
+        "high":   {"textures":"High","shadows":"High","effects":"High","ao":true}
+      }
+    },
+    "age of empires iv": {
+      "demand": 3, "anticheat": false, "cpu_bound": true,
+      "engine": "Custom (Relic)", "genre": "rts",
+      "upscaler_support": ["none"],
+      "notes": "Büyük savaşlarda (200+ unit) CPU darboğazı. GPU etkisi düşük.",
+      "settings": {
+        "low":    {"quality":"Low","shadows":false,"ao":false},
+        "medium": {"quality":"Medium","shadows":true,"ao":false},
+        "high":   {"quality":"High","shadows":true,"ao":true}
+      }
+    },
+    "total war warhammer iii": {
+      "demand": 4, "anticheat": false, "cpu_bound": true,
+      "engine": "TW Engine 3", "genre": "rts_strategy",
+      "upscaler_support": ["none"],
+      "notes": "Büyük savaşlarda (1000+ asker) CPU tek çekirdek performansı kritik. Shader kütüphanesi büyük.",
+      "settings": {
+        "low":    {"quality":"Low","shadows":false,"grass":false,"unit_size":"Medium"},
+        "medium": {"quality":"Medium","shadows":"Low","grass":true,"unit_size":"Large"},
+        "high":   {"quality":"Ultra","shadows":"High","grass":true,"unit_size":"Ultra"}
+      }
+    },
+    "phasmophobia": {
+      "demand": 2, "anticheat": false, "cpu_bound": false,
+      "engine": "Unity", "genre": "horror_coop",
+      "upscaler_support": ["none"],
+      "notes": "Hafif ama VR desteği GPU'ya baskı yapabilir.",
+      "settings": {
+        "low":    {"quality":"Low","shadows":false},
+        "medium": {"quality":"Medium","shadows":true},
+        "high":   {"quality":"High","shadows":true}
+      }
+    },
+    "stardew valley": {
+      "demand": 1, "anticheat": false, "cpu_bound": false,
+      "engine": "MonoGame", "genre": "simulation",
+      "upscaler_support": ["none"],
+      "notes": "10 yıllık bir GPU'da bile sorunsuz çalışır. Hiçbir optimizasyon gerekmez.",
+      "settings": {"all": {"note": "Tüm ayarları en yükseğe al."}}
+    },
+    "terraria": {
+      "demand": 1, "anticheat": false, "cpu_bound": true,
+      "engine": "XNA/MonoGame", "genre": "sandbox",
+      "upscaler_support": ["none"],
+      "notes": "2D oyun, her sistemde sorunsuz çalışır.",
+      "settings": {"all": {"note": "Optimizasyon gerekmez."}}
+    },
+    "7 days to die": {
+      "demand": 4, "anticheat": false, "cpu_bound": true,
+      "engine": "Unity", "genre": "survival",
+      "upscaler_support": ["none"],
+      "notes": "Horde gecesi ve büyük şehirlerde çok CPU yoğun. Yeni bölge oluştururken donma normaldir.",
+      "settings": {
+        "low":    {"textures":0,"shadows":0,"water":0,"ao":false},
+        "medium": {"textures":1,"shadows":1,"water":1,"ao":false},
+        "high":   {"textures":2,"shadows":2,"water":2,"ao":true}
+      }
+    },
+    "ark survival ascended": {
+      "demand": 5, "anticheat": true, "cpu_bound": false,
+      "engine": "Unreal Engine 5", "genre": "survival",
+      "upscaler_support": ["dlss","fsr","xess","tsr"],
+      "notes": "BattlEye var. Lumen ve Nanite ile gelir, kapatılamaz. DLSS/FSR olmadan 60 FPS çok zor.",
+      "settings": {
+        "low":    {"ShadowQuality":"Low","TextureQuality":"Low","ViewDistance":"Low","VolumetricFog":false},
+        "medium": {"ShadowQuality":"Medium","TextureQuality":"Medium","ViewDistance":"Medium","VolumetricFog":false},
+        "high":   {"ShadowQuality":"High","TextureQuality":"High","ViewDistance":"High","VolumetricFog":true}
+      }
+    }
+  }
+}

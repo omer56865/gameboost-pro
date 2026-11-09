@@ -1,0 +1,19 @@
+{
+  "game": "ıo",
+  "gpu": "NVIDIA GeForce GT 415",
+  "gpu_tier": 3,
+  "vram_gb": 6,
+  "ram_gb": 4.0,
+  "cores": 4,
+  "demand": 4,
+  "quality_preset": "Orta/Düşük",
+  "texture_quality": "Orta",
+  "upscaler": "FSR",
+  "upscaler_mode": "Balanced",
+  "render_scale": 0.58,
+  "frame_generation": false,
+  "target_fps": 140,
+  "notes": [
+    "RAM düşük: arka plan uygulamalarını kapat."
+  ]
+}
